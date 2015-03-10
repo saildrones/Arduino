@@ -407,6 +407,12 @@ public class Compiler implements MessageConsumer {
     progressListener.progress(80);
     runRecipe("recipe.objcopy.hex.pattern");
 
+    //7. build the .bin file (only for Arduino Zero Pro)
+    if(prefs.get("build.mcu").equals("cortex-m0plus")){
+      progressListener.progress(85);
+      runRecipe("recipe.objcopy.bin.pattern");
+    }
+
     progressListener.progress(90);
     return true;
   }
