@@ -5,33 +5,30 @@
   <!--echo message="os.version = ${os.version}" /-->
 
   <!-- Sets properties for macosx/windows/linux depending on current system -->
-  <condition property="platform" value="macosx-java-latest"><os family="mac" /></condition>
-  <condition property="platform" value="macosx">
-    <and>
-      <os family="mac" />
-      <matches string="${os.version}" pattern="^10.[56]." />
-    </and>
-  </condition>
+
+
+  <condition property="platform" value="macosx"><os family="mac" /></condition>
+  <condition property="platform" value="macosx-java7"><os family="mac" /></condition>
   <condition property="platform" value="windows"><os family="windows" /></condition>
+  <condition property="platform" value="linux"><os family="unix" /></condition>
   <condition property="platform" value="linux32"><os family="unix" arch="i386" /></condition>
   <condition property="platform" value="linux64"><os family="unix" arch="amd64" /></condition>
 
   <condition property="macosx"><equals arg1="${platform}" arg2="macosx" /></condition>
-  <condition property="macosx"><equals arg1="${platform}" arg2="macosx-java-latest" /></condition>
-  <condition property="macosx-java-latest"><equals arg1="${platform}" arg2="macosx-java-latest" /></condition>
+  <condition property="macosx-java7"><equals arg1="${platform}" arg2="macosx-java7" /></condition>
   <condition property="windows"><equals arg1="${platform}" arg2="windows" /></condition>
   <condition property="linux32"><equals arg1="${platform}" arg2="linux32" /></condition>
   <condition property="linux64"><equals arg1="${platform}" arg2="linux64" /></condition>
   <condition property="linux"><equals arg1="${platform}" arg2="linux32" /></condition>
   <condition property="linux"><equals arg1="${platform}" arg2="linux64" /></condition>
 
-  <condition property="staging_folder" value="macosx"><equals arg1="${platform}" arg2="macosx-java-latest" /></condition>
+  <condition property="staging_folder" value="macosx"><equals arg1="${platform}" arg2="macosx-java7" /></condition>
   <condition property="staging_folder" value="macosx"><equals arg1="${platform}" arg2="macosx" /></condition>
   <condition property="staging_folder" value="windows"><equals arg1="${platform}" arg2="windows" /></condition>
   <condition property="staging_folder" value="linux"><equals arg1="${platform}" arg2="linux32" /></condition>
   <condition property="staging_folder" value="linux"><equals arg1="${platform}" arg2="linux64" /></condition>
 
-  <condition property="staging_hardware_folder" value="Arduino.app/Contents/Java/hardware"><equals arg1="${platform}" arg2="macosx-java-latest" /></condition>
+  <condition property="staging_hardware_folder" value="Arduino.app/Contents/Java/hardware"><equals arg1="${platform}" arg2="macosx-java7" /></condition>
   <condition property="staging_hardware_folder" value="Arduino.app/Contents/Resources/Java/hardware"><equals arg1="${platform}" arg2="macosx" /></condition>
   <condition property="staging_hardware_folder" value="hardware"><equals arg1="${platform}" arg2="windows" /></condition>
   <condition property="staging_hardware_folder" value="hardware"><equals arg1="${platform}" arg2="linux32" /></condition>
@@ -73,6 +70,14 @@
   </target>
 
   <target name="dist" depends="revision-check"
+	  description="Build Arduino for distribution.">
+    <input message="Enter version number:"
+	   addproperty="version"
+	   defaultvalue="${revision}" />
+    <antcall target="${platform}-dist" />
+  </target>
+
+  <target name="java7-dist" depends="revision-check"
 	  description="Build Arduino for distribution.">
     <input message="Enter version number:"
 	   addproperty="version"
@@ -145,7 +150,7 @@
     <!-- Unzip documentation -->
     <antcall target="unzip">
       <param name="archive_file" value="shared/reference-1.6.0.zip" />
-      <param name="archive_url" value="http://arduino.cc/download.php?f=/reference-1.6.0.zip" />
+      <param name="archive_url" value="http://download.arduino.org/reference-1.6.0.zip" />
       <param name="final_folder" value="${target.path}/reference" />
       <param name="dest_folder" value="${target.path}" />
     </antcall>
@@ -195,7 +200,7 @@
   <!-- Mac OS X      -->
   <!-- - - - - - - - -->
 
-  <target name="macosx-java-latest-clean" depends="macosx-clean" description="Clean Mac OS X build"/>
+  <target name="macosx-java7-clean" depends="macosx-clean" description="Clean Mac OS X build"/>
 
   <target name="macosx-clean" depends="subprojects-clean" description="Clean Mac OS X build">
     <delete dir="macosx/work" />
@@ -246,10 +251,10 @@
 
   </target>
 
-  <target name="macosx-java-latest-build" if="macosx" depends="revision-check, macosx-checkos, subprojects-build" description="Build Mac OS X version">
+  <target name="macosx-java7-build" if="macosx" depends="revision-check, macosx-checkos, subprojects-build" description="Build Mac OS X version">
     <antcall target="unzip">
       <param name="archive_file" value="${staging_folder}/appbundler-1.0ea.jar.zip" />
-      <param name="archive_url" value="http://arduino.cc/download.php?f=/appbundler-1.0ea.jar.zip" />
+      <param name="archive_url" value="http://download.arduino.org/appbundler-1.0ea.jar.zip" />
       <param name="final_folder" value="${staging_folder}/appbundler" />
       <param name="dest_folder" value="${staging_folder}/appbundler" />
     </antcall>
@@ -262,15 +267,15 @@
                name="Arduino"
                displayName="Arduino"
                executableName="Arduino"
-               identifier="cc.arduino.Arduino"
+               identifier="org.arduino.Arduino"
                signature="Pde1"
                icon="macosx/template.app/Contents/Resources/processing.icns"
-               copyright="Arduino LLC"
+               copyright="Arduino Srl"
                getInfo="${version}"
                shortVersion="${version}"
                version="${revision}"
                mainClassName="processing.app.Base"
-               minimumsystem="10.7"
+               minimumsystem="10.6"
                highresolutioncapable="true">
 
       <arch name="x86_64"/>
@@ -326,8 +331,8 @@
 
     <!-- Unzip AVR tools -->
     <antcall target="unzip">
-      <param name="archive_file" value="${staging_folder}/avr-toolchain-mac32-gcc-4.8.1.zip" />
-      <param name="archive_url" value="http://downloads.arduino.cc/avr-toolchain-mac32-gcc-4.8.1.zip" />
+      <param name="archive_file" value="${staging_folder}/avr-toolchain-mac32-gcc-4.8.1-1.zip" />
+      <param name="archive_url" value="http://download.arduino.org/avr-toolchain-mac32-gcc-4.8.1-1.zip" />
       <param name="final_folder" value="${staging_folder}/work/${staging_hardware_folder}/tools/avr" />
       <param name="dest_folder" value="${staging_folder}/work/${staging_hardware_folder}/tools/avr" />
     </antcall>
@@ -344,7 +349,7 @@
 
     <antcall target="untar">
       <param name="archive_file" value="${staging_folder}/dist/gcc-arm-none-eabi-4.8.3-2014q1-mac.tar.gz" />
-      <param name="archive_url" value="http://downloads.arduino.cc/gcc-arm-none-eabi-4.8.3-2014q1-mac.tar.gz" />
+      <param name="archive_url" value="http://download.arduino.org/gcc-arm-none-eabi-4.8.3-2014q1-mac.tar.gz" />
       <param name="final_folder" value="${staging_folder}/work/${staging_hardware_folder}/tools/gcc-arm-none-eabi-4.8.3-2014q1" />
       <param name="dest_folder" value="${staging_folder}/work/${staging_hardware_folder}/tools/" />
     </antcall>
@@ -358,7 +363,7 @@
 
     <antcall target="unzip">
       <param name="archive_file" value="./libastylej-2.05.zip" />
-      <param name="archive_url" value="http://downloads.arduino.cc/libastylej-2.05.zip" />
+      <param name="archive_url" value="http://download.arduino.org/libastylej-2.05.zip" />
       <param name="final_folder" value="${staging_folder}/libastylej" />
       <param name="dest_folder" value="${staging_folder}" />
     </antcall>
@@ -373,13 +378,21 @@
       <fileset dir="macosx/work/${staging_hardware_folder}/tools/avr/libexec/gcc/avr/4.8.1/" includes="*" />
     </chmod>
 
+  <!-- Unzip OpenOCD tools -->
+    <antcall target="unzip-openocd">
+      <param name="dist_file" value="OpenOCD-0.9.0-dev-arduino-x86_64-apple-darwin13.4.0.tar.bz2" />
+      <param name="dist_url" value="http://download.arduino.org/OpenOCD-0.9.0-dev-arduino-x86_64-apple-darwin13.4.0.tar.bz2" />
+      <param name="dist_check_file" value="OpenOCD-0.9.0-dev-arduino" />
+    </antcall>
+        <chmod perm="755" file="macosx/work/${staging_hardware_folder}/tools/OpenOCD-0.9.0-dev-arduino/bin/openocd" />
+
   </target>
 
   <target name="macosx-run" depends="macosx-build" description="Run Mac OS X version">
     <antcall target="macosx-run-common"/>
   </target>
 
-  <target name="macosx-java-latest-run" depends="macosx-java-latest-build" description="Run Mac OS X version">
+  <target name="macosx-java7-run" depends="macosx-java7-build" description="Run Mac OS X version">
     <antcall target="macosx-run-common"/>
   </target>
 
@@ -387,7 +400,7 @@
     <antcall target="macosx-debug-common"/>
   </target>
 
-  <target name="macosx-java-latest-debug" depends="macosx-java-latest-build" description="Run Mac OS X version">
+  <target name="macosx-java7-debug" depends="macosx-java7-build" description="Run Mac OS X version">
     <antcall target="macosx-debug-common"/>
   </target>
 
@@ -406,7 +419,7 @@
   <!-- - - - - - - - - - - - - - - - -->
   <!-- Sign application for MacOSX.  -->
   <!-- - - - - - - - - - - - - - - - -->
-  <target name="macosx-signed-dist" if="macosx" depends="macosx-singed-dist-check, dist"
+  <target name="macosx-signed-dist" if="macosx" depends="dist"
     description="Create a downloadable and signed .zip for the Mac OS X version">
     <fail unless="version" message="Please set the property 'version' to correctly sign distribution file" />
 
@@ -419,21 +432,21 @@
     </exec>
 
     <!-- Unlock keychain file -->
-    <exec executable="security" dir="macosx/work">
+    <!--<exec executable="security" dir="macosx/work">
       <arg line="unlock-keychain -p &quot;${macosx-sign-keychain-pass}&quot; &quot;${macosx-sign-keychain}&quot;" />
-    </exec>
+    </exec> -->
 
     <!-- Sign app -->
     <exec executable="codesign" dir="macosx/work">
-      <arg line="--keychain &quot;${macosx-sign-keychain}&quot; --force -s &quot;${macosx-sign-id}&quot; -v Arduino.app/" />
+      <arg line="--force -s &quot;Arduino srl&quot; -v Arduino.app/" />
     </exec>
 
     <!-- Check for successful signing -->
     <exec executable="codesign" dir="macosx/work" failonerror="true">
-      <arg line="-vvvv Arduino.app/" />
+      <arg line="-dvvv Arduino.app/" />
     </exec>
 
-    <delete file="macosx/arduino-${version}-${platform}.zip" />
+    <!-- <delete file="macosx/arduino-${version}-${platform}.zip" /> -->
 
     <!-- Create signed zip file -->
     <exec executable="zip" dir="macosx/work">
@@ -445,6 +458,52 @@
       Arduino for Mac OS X built and signed.
 
       macosx/arduino-${version}-${platform}-signed.zip
+      =======================================================
+    </echo>
+  </target>
+
+  <!-- - - - - - - - - - - - - - - - - - - -->
+  <!-- Sign application for MacOSX Java7.  -->
+  <!-- - - - - - - - - - - - - - - - - - - -->
+  <target name="macosx-java7-signed-dist" if="macosx" depends="java7-dist,macosx-java7-build,macosx-java7-dist-common"
+    description="Create a downloadable and signed .zip for the Mac OS X version">
+    <fail unless="version" message="Please set the property 'version' to correctly sign distribution file" />
+
+    <!-- Remove everything from working folder -->
+    <delete dir="macosx/work/Arduino.app" />
+
+    <!-- Unzip unsigned app into working dir -->
+    <exec executable="unzip" dir="macosx/work">
+      <arg line="../arduino-${version}-${platform}-java7.zip" />
+    </exec>
+
+    <!-- Unlock keychain file -->
+    <!--<exec executable="security" dir="macosx/work">
+      <arg line="unlock-keychain -p &quot;${macosx-sign-keychain-pass}&quot; &quot;${macosx-sign-keychain}&quot;" />
+    </exec> -->
+
+    <!-- Sign app -->
+    <exec executable="codesign" dir="macosx/work">
+      <arg line="--force -s &quot;Arduino srl&quot; -v Arduino.app/" />
+    </exec>
+
+    <!-- Check for successful signing -->
+    <exec executable="codesign" dir="macosx/work" failonerror="true">
+      <arg line="-dvvv Arduino.app/" />
+    </exec>
+
+    <!-- <delete file="macosx/arduino-${version}-${platform}.zip" /> -->
+
+    <!-- Create signed zip file -->
+    <exec executable="zip" dir="macosx/work">
+      <arg line="-q -r ../arduino-${version}-${platform}-java7-signed.zip ." />
+    </exec>
+
+    <echo>
+      =======================================================
+      Arduino for Mac OS X built and signed.
+
+      macosx/arduino-${version}-${platform}-java7-signed.zip
       =======================================================
     </echo>
   </target>
@@ -462,7 +521,7 @@
     <antcall target="macosx-dist-common"/>
   </target>
 
-  <target name="macosx-java-latest-dist" if="macosx" depends="macosx-java-latest-build" description="Create a downloadable .zip for the Mac OS X version">
+  <target name="macosx-java7-dist" if="macosx-java7" depends="dist,macosx-java7-build,macosx-java7-dist-common" description="Create a downloadable .zip for the Mac OS X version">
     <antcall target="macosx-dist-common"/>
   </target>
 
@@ -476,6 +535,20 @@
       Arduino for Mac OS X was built. Grab the image from
 
       macosx/arduino-${version}-${platform}.zip
+      =======================================================
+    </echo>
+  </target>
+
+  <target name="macosx-java7-dist-common">
+    <exec executable="zip" dir="macosx/work">
+      <arg line="-q -r ../arduino-${version}-${platform}-java7.zip ." />
+    </exec>
+
+    <echo>
+      =======================================================
+      Arduino for Mac OS X was built. Grab the image from
+
+      macosx/arduino-${version}-${platform}-java7.zip
       =======================================================
     </echo>
   </target>
@@ -505,7 +578,7 @@
       <fileset dir="macosx/working_dir/Arduino.app/Contents/Resources/Java/hardware/tools/avr/libexec/gcc/avr/4.3.2/" includes="**/cc1*" />
     </chmod>
 
-    <!-- Pause briefly for the OS to catch up with the DMG changes. 
+    <!-- Pause briefly for the OS to catch up with the DMG changes.
 	 This prevents "hdiutil: couldn't eject "disk3" - Resource busy"
 	 errors when ejecting the disk in the next step.
          You may need to set this value higher for your system. -->
@@ -594,7 +667,7 @@
 
     <antcall target="unzip">
       <param name="archive_file" value="./libastylej-2.05.zip" />
-      <param name="archive_url" value="http://downloads.arduino.cc/libastylej-2.05.zip" />
+      <param name="archive_url" value="http://download.arduino.org/libastylej-2.05.zip" />
       <param name="final_folder" value="${staging_folder}/libastylej" />
       <param name="dest_folder" value="${staging_folder}" />
     </antcall>
@@ -606,36 +679,52 @@
     <!-- Unzip ARM tools -->
     <antcall target="untar">
       <param name="archive_file" value="${staging_folder}/dist/gcc-arm-none-eabi-4.8.3-2014q1-linux32.tar.gz" />
-      <param name="archive_url" value="http://downloads.arduino.cc/gcc-arm-none-eabi-4.8.3-2014q1-linux32.tar.gz" />
+      <param name="archive_url" value="http://download.arduino.org/gcc-arm-none-eabi-4.8.3-2014q1-linux32.tar.gz" />
       <param name="final_folder" value="${staging_folder}/work/${staging_hardware_folder}/tools/gcc-arm-none-eabi-4.8.3-2014q1" />
       <param name="dest_folder" value="${staging_folder}/work/${staging_hardware_folder}/tools/" />
     </antcall>
 
     <!-- Unzip AVR tools -->
     <antcall target="unzip">
-      <param name="archive_file" value="${staging_folder}/avr-toolchain-linux32-gcc-4.8.1.zip" />
-      <param name="archive_url" value="http://downloads.arduino.cc/avr-toolchain-linux32-gcc-4.8.1.zip" />
+      <param name="archive_file" value="${staging_folder}/avr-toolchain-linux32-gcc-4.8.1-1.zip" />
+      <param name="archive_url" value="http://download.arduino.org/avr-toolchain-linux32-gcc-4.8.1-1.zip" />
       <param name="final_folder" value="${staging_folder}/work/${staging_hardware_folder}/tools/avr" />
       <param name="dest_folder" value="${staging_folder}/work/${staging_hardware_folder}/tools/avr" />
     </antcall>
+    
+    <!-- Unzip OpenOCD tools -->
+    <antcall target="unzip-openocd">
+      <param name="dist_file" value="OpenOCD-0.9.0-dev-arduino-i486-linux-gnu.tar.bz2" />
+      <param name="dist_url" value="http://download.arduino.org/OpenOCD-0.9.0-dev-arduino-i486-linux-gnu.tar.bz2" />
+      <param name="dist_check_file" value="OpenOCD-0.9.0-dev-arduino" />
+    </antcall>
+    <chmod perm="755" file="linux/work/hardware/tools/OpenOCD-0.9.0-dev-arduino/bin/openocd" />
   </target>
 
   <target name="linux64-build" depends="linux-build" description="Build linux (64-bit) version">
     <!-- Unzip ARM tools -->
     <antcall target="untar">
       <param name="archive_file" value="${staging_folder}/dist/gcc-arm-none-eabi-4.8.3-2014q1-linux64.tar.gz" />
-      <param name="archive_url" value="http://downloads.arduino.cc/gcc-arm-none-eabi-4.8.3-2014q1-linux64.tar.gz" />
+      <param name="archive_url" value="http://download.arduino.org/gcc-arm-none-eabi-4.8.3-2014q1-linux64.tar.gz" />
       <param name="final_folder" value="${staging_folder}/work/${staging_hardware_folder}/tools/gcc-arm-none-eabi-4.8.3-2014q1" />
       <param name="dest_folder" value="${staging_folder}/work/${staging_hardware_folder}/tools/" />
     </antcall>
 
     <!-- Unzip AVR tools -->
     <antcall target="unzip">
-      <param name="archive_file" value="${staging_folder}/avr-toolchain-linux64-gcc-4.8.1.zip" />
-      <param name="archive_url" value="http://downloads.arduino.cc/avr-toolchain-linux64-gcc-4.8.1.zip" />
+      <param name="archive_file" value="${staging_folder}/avr-toolchain-linux64-gcc-4.8.1-1.zip" />
+      <param name="archive_url" value="http://downloads.arduino.org/avr-toolchain-linux64-gcc-4.8.1-1.zip" />
       <param name="final_folder" value="${staging_folder}/work/${staging_hardware_folder}/tools/avr" />
       <param name="dest_folder" value="${staging_folder}/work/${staging_hardware_folder}/tools/avr" />
     </antcall>
+
+    <!-- Unzip OpenOCD tools -->
+    <antcall target="unzip-openocd">
+      <param name="dist_file" value="OpenOCD-0.9.0-dev-arduino-x86_64-linux-gnu.tar.bz2" />
+      <param name="dist_url" value="http://download.arduino.org/OpenOCD-0.9.0-dev-arduino-x86_64-linux-gnu.tar.bz2" />
+      <param name="dist_check_file" value="OpenOCD-0.9.0-dev-arduino" />
+    </antcall>
+    <chmod perm="755" file="linux/work/hardware/tools/OpenOCD-0.9.0-dev-arduino/bin/openocd" />    
   </target>
 
   <target name="linux32-run" depends="linux32-build" description="Run Linux (32-bit) version">
@@ -697,12 +786,12 @@
   <target name="linux-dist" depends="build"
 	  description="Build .tar.xz of linux version">
 
-    <!--get src="http://dev.processing.org/build/jre-tools-6u18-linux-i586.tgz" 
-	 dest="linux/jre.tgz" 
-	 usetimestamp="true" />    
-    <untar compression="gzip" 
-	   dest="linux/work" 
-	   src="linux/jre.tgz" 
+    <!--get src="http://dev.processing.org/build/jre-tools-6u18-linux-i586.tgz"
+	 dest="linux/jre.tgz"
+	 usetimestamp="true" />
+    <untar compression="gzip"
+	   dest="linux/work"
+	   src="linux/jre.tgz"
 	   overwrite="false"/-->
 
 <!--
@@ -816,14 +905,14 @@
     <!-- Unzip AVR tools -->
     <antcall target="unzip">
       <param name="archive_file" value="${staging_folder}/avr-toolchain-win32-gcc-4.8.1.zip" />
-      <param name="archive_url" value="http://downloads.arduino.cc/avr-toolchain-win32-gcc-4.8.1.zip" />
+      <param name="archive_url" value="http://download.arduino.org/avr-toolchain-win32-gcc-4.8.1-1.zip" />
       <param name="final_folder" value="${staging_folder}/work/${staging_hardware_folder}/tools/avr" />
       <param name="dest_folder" value="${staging_folder}/work/${staging_hardware_folder}/tools/avr" />
     </antcall>
 
     <antcall target="unzip">
       <param name="archive_file" value="./libastylej-2.05.zip" />
-      <param name="archive_url" value="http://downloads.arduino.cc/libastylej-2.05.zip" />
+      <param name="archive_url" value="http://download.arduino.org/libastylej-2.05.zip" />
       <param name="final_folder" value="${staging_folder}/libastylej" />
       <param name="dest_folder" value="${staging_folder}" />
     </antcall>
@@ -831,6 +920,14 @@
     <copy file="windows/msvcp100.dll" todir="windows/work" />
     <copy file="windows/msvcr100.dll" todir="windows/work" />
 
+    <!-- Unzip OpenOCD tools -->
+    <antcall target="unzip-openocd">
+      <param name="dist_file" value="OpenOCD-0.9.0-dev-arduino-win32.tar.bz2" />
+      <param name="dist_url" value="http://download.arduino.org/OpenOCD-0.9.0-dev-arduino-win32.tar.bz2" />
+      <param name="dist_check_file" value="OpenOCD-0.9.0-dev-arduino" />
+    </antcall>
+    <chmod perm="755" file="windows/work/hardware/tools/OpenOCD-0.9.0-dev-arduino/bin/openocd.exe" />
+    
     <!-- Copy bossac.exe tool -->
     <copy todir="windows/work/hardware/tools">
       <fileset file="windows/bossac.exe" />
@@ -869,7 +966,7 @@
     <!-- Unzip ARM toolchain -->
     <antcall target="untar">
       <param name="archive_file" value="${staging_folder}/dist/gcc-arm-none-eabi-4.8.3-2014q1-windows.tar.gz" />
-      <param name="archive_url" value="http://downloads.arduino.cc/gcc-arm-none-eabi-4.8.3-2014q1-windows.tar.gz" />
+      <param name="archive_url" value="http://download.arduino.org/gcc-arm-none-eabi-4.8.3-2014q1-windows.tar.gz" />
       <param name="final_folder" value="${staging_folder}/work/${staging_hardware_folder}/tools/gcc-arm-none-eabi-4.8.3-2014q1" />
       <param name="dest_folder" value="${staging_folder}/work/${staging_hardware_folder}/tools/" />
     </antcall>
@@ -888,17 +985,17 @@
   <target name="windows-dist" depends="windows-build"
 	  description="Create .zip files of windows version">
 
-    <get src="http://downloads.arduino.cc/jre_7u40_windows_i586.zip" dest="windows/jre.zip" usetimestamp="true" skipexisting="true" />
+    <get src="http://download.arduino.org/jre_7u40_windows_i586.zip" dest="windows/jre.zip" usetimestamp="true" skipexisting="true" />
 
     <unzip dest="windows/work" src="windows/jre.zip" overwrite="false"/>
 
     <!--
-    <zip basedir="windows/work" 
+    <zip basedir="windows/work"
 	 prefix="arduino-${version}"
 	 destfile="windows/arduino-${version}.zip" />
-    <zip basedir="windows/work" 
+    <zip basedir="windows/work"
 	 prefix="arduino-${version}"
-	 destfile="windows/arduino-${version}-expert.zip" 
+	 destfile="windows/arduino-${version}-expert.zip"
 	 excludes="java/**" />
     -->
 
@@ -957,5 +1054,40 @@
   <target name="clean" description="Perform a spring cleaning"
 	  depends="linux-clean, windows-clean, macosx-clean, subprojects-clean">
   </target>
+
+  <!-- - - - - - - -->
+  <!-- OPEN OCD    -->
+  <!-- - - - - - - -->
+  <target name="check-openocd">
+    <available file="${staging_folder}/dist/${dist_file}" property="openocd_distfile_available" />
+    <available file="${staging_folder}/work/hardware/tools/${dist_check_file}" property="openocd_installed" />
+  </target>
+
+  <!-- Retrieve openOCD -->
+  <target name="get-openocd" depends="check-openocd" unless="openocd_distfile_available">
+    <get src="${dist_url}" dest="${staging_folder}/dist/${dist_file}" verbose="true" ignoreerrors="true" />
+  </target>
+
+  <target name="unzip-openocd" depends="get-openocd, check-openocd"
+      unless="openocd_toolchain_installed">
+    <checksum file="${staging_folder}/dist/${dist_file}" algorithm="sha"
+      fileext=".sha" verifyproperty="checksum.matches"/>
+    <condition property="checksum.matches.fail">
+      <equals arg1="${checksum.matches}" arg2="false"/>
+    </condition>
+    <fail if="checksum.matches.fail">Checksum failed.
+
+      File ${dist_file} failed checksum.
+      Please remove "${staging_folder}/dist/${dist_file}" to download it again.
+    </fail>
+
+    <!-- Unzip openocd to the destination folder -->
+    <exec executable="tar">
+      <arg value="xfz"/>
+      <arg value="${staging_folder}/dist/${dist_file}"/>
+      <arg value="--directory=${staging_folder}/work/${staging_hardware_folder}/tools/"/>
+    </exec>
+  </target>
+
 
 </project>
