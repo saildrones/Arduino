@@ -1,3 +1,15 @@
+ARDUINO 1.6.0.1 - 2015.06.03
+
+[libraries]
+* Update DAC, ADC, PWM, Digital for SAMD
+
+[ide]
+* Add openocd and cmsis tool
+* Update windows driver with the Zero Pro 
+* Add Atmel Drivers
+
+[core]
+* gcc: introduce bin compiling for Zero Pro programming port
 
 ARDUINO 1.6.0 - 2015.02.09
 
