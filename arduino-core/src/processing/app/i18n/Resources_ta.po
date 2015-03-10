@@ -791,10 +791,6 @@ msgstr "எடுத்துக்காட்டுகள்"
 msgid "Export canceled, changes must first be saved."
 msgstr "ஏற்றுமதி ரத்து செய்யப்பட்டது, மாற்றங்களை முதலில் சேமிக்க வேண்டும்."
 
-#: Base.java:2100
-msgid "FAQ.html"
-msgstr "FAQ.html"
-
 #: ../../../processing/app/Base.java:416
 #, java-format
 msgid "Failed to open sketch: \"{0}\""
@@ -891,22 +887,6 @@ msgstr ""
 #: Preferences.java:98
 msgid "Greek"
 msgstr "கிரேக்கம்"
-
-#: Base.java:2085
-msgid "Guide_Environment.html"
-msgstr "Guide_Environment.html"
-
-#: Base.java:2071
-msgid "Guide_MacOSX.html"
-msgstr "Guide_MacOSX.html"
-
-#: Base.java:2095
-msgid "Guide_Troubleshooting.html"
-msgstr "Guide_Troubleshooting.html"
-
-#: Base.java:2073
-msgid "Guide_Windows.html"
-msgstr "Guide_Windows.html"
 
 #: ../../../processing/app/Preferences.java:95
 msgid "Hebrew"
@@ -1795,9 +1775,9 @@ msgstr "பதிவேற்றியவுடன் குறியீட்�
 msgid "Vietnamese"
 msgstr ""
 
-#: Editor.java:1105
-msgid "Visit Arduino.cc"
-msgstr "Arduino.cc செல்க"
+#: ../../../../../app/src/processing/app/Editor.java:1105
+msgid "Visit Arduino.org"
+msgstr ""
 
 #: ../../../processing/app/debug/Compiler.java:115
 #, java-format
@@ -1966,13 +1946,9 @@ msgstr "createNewFile() தவறென கூறுகிறது"
 msgid "enabled in File > Preferences."
 msgstr ""
 
-#: Base.java:2090
-msgid "environment"
-msgstr "சுற்றுச்சூழல்"
-
-#: Editor.java:1108
-msgid "http://arduino.cc/"
-msgstr "http://arduino.cc/"
+#: ../../../../../app/src/processing/app/Editor.java:1108
+msgid "http://arduino.org/"
+msgstr ""
 
 #: UpdateCheck.java:118
 msgid "http://www.arduino.cc/en/Main/Software"
@@ -1982,26 +1958,14 @@ msgstr "http://www.arduino.cc/en/Main/Software"
 msgid "http://www.arduino.cc/latest.txt"
 msgstr "http://www.arduino.cc/latest.txt"
 
-#: Base.java:2075
-msgid "http://www.arduino.cc/playground/Learning/Linux"
-msgstr "http://www.arduino.cc/playground/Learning/Linux"
-
 #: Preferences.java:625
 #, java-format
 msgid "ignoring invalid font size {0}"
 msgstr "தவறான எழுத்துரு அளவை {0} அளச்சியப்படுத்துகிறது"
 
-#: Base.java:2080
-msgid "index.html"
-msgstr "index.html"
-
 #: Editor.java:936 Editor.java:943
 msgid "name is null"
 msgstr "பெயர் வெற்றாக உள்ளது"
-
-#: Base.java:2090
-msgid "platforms.html"
-msgstr "platforms.html"
 
 #: Editor.java:932
 msgid "serialMenu is null"
@@ -2036,11 +2000,6 @@ msgstr "{0},{1}என திருப்பியது"
 #, java-format
 msgid "{0} | Arduino {1}"
 msgstr "{0} | Arduino {1}"
-
-#: Editor.java:1874
-#, java-format
-msgid "{0}.html"
-msgstr "{0}.html"
 
 #: ../../../processing/app/Base.java:519
 #, java-format

@@ -797,10 +797,6 @@ msgstr "Exemplos"
 msgid "Export canceled, changes must first be saved."
 msgstr "Exportação cancelada, alterações devem ser salvas antes."
 
-#: Base.java:2100
-msgid "FAQ.html"
-msgstr "FAQ.html"
-
 #: ../../../processing/app/Base.java:416
 #, java-format
 msgid "Failed to open sketch: \"{0}\""
@@ -897,22 +893,6 @@ msgstr "Variáveis globais usam {0} bytes de memória dinâmica."
 #: Preferences.java:98
 msgid "Greek"
 msgstr "Grego"
-
-#: Base.java:2085
-msgid "Guide_Environment.html"
-msgstr "Guide_Environment.html"
-
-#: Base.java:2071
-msgid "Guide_MacOSX.html"
-msgstr "Guia_MacOSX.html"
-
-#: Base.java:2095
-msgid "Guide_Troubleshooting.html"
-msgstr "Guia_SolucionarProblemas.html"
-
-#: Base.java:2073
-msgid "Guide_Windows.html"
-msgstr "Guia_Windows.html"
 
 #: ../../../processing/app/Preferences.java:95
 msgid "Hebrew"
@@ -1801,9 +1781,9 @@ msgstr "Verificar código depois de carregar"
 msgid "Vietnamese"
 msgstr "Vietnamita"
 
-#: Editor.java:1105
-msgid "Visit Arduino.cc"
-msgstr "Visite Arduino.cc"
+#: ../../../../../app/src/processing/app/Editor.java:1105
+msgid "Visit Arduino.org"
+msgstr ""
 
 #: ../../../processing/app/debug/Compiler.java:115
 #, java-format
@@ -1972,13 +1952,9 @@ msgstr "createNewFile() retornou falso"
 msgid "enabled in File > Preferences."
 msgstr "habilitado em Arquivo > Preferências."
 
-#: Base.java:2090
-msgid "environment"
-msgstr "ambiente"
-
-#: Editor.java:1108
-msgid "http://arduino.cc/"
-msgstr "http://arduino.cc/"
+#: ../../../../../app/src/processing/app/Editor.java:1108
+msgid "http://arduino.org/"
+msgstr ""
 
 #: UpdateCheck.java:118
 msgid "http://www.arduino.cc/en/Main/Software"
@@ -1988,26 +1964,14 @@ msgstr "http://www.arduino.cc/en/Main/Software"
 msgid "http://www.arduino.cc/latest.txt"
 msgstr "http://www.arduino.cc/latest.txt"
 
-#: Base.java:2075
-msgid "http://www.arduino.cc/playground/Learning/Linux"
-msgstr "http://www.arduino.cc/playground/Learning/Linux"
-
 #: Preferences.java:625
 #, java-format
 msgid "ignoring invalid font size {0}"
 msgstr "ignorando tamanho de fonte inválido {0}"
 
-#: Base.java:2080
-msgid "index.html"
-msgstr "indice.html"
-
 #: Editor.java:936 Editor.java:943
 msgid "name is null"
 msgstr "nome é nulo"
-
-#: Base.java:2090
-msgid "platforms.html"
-msgstr "plataformas.html"
 
 #: Editor.java:932
 msgid "serialMenu is null"
@@ -2042,11 +2006,6 @@ msgstr "{0} retornou {1}"
 #, java-format
 msgid "{0} | Arduino {1}"
 msgstr "{0} | Arduino {1}"
-
-#: Editor.java:1874
-#, java-format
-msgid "{0}.html"
-msgstr "{0}.html"
 
 #: ../../../processing/app/Base.java:519
 #, java-format

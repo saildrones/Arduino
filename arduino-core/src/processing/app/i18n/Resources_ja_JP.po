@@ -792,10 +792,6 @@ msgstr "スケッチの例"
 msgid "Export canceled, changes must first be saved."
 msgstr "エクスポートを中止しました。エクスポートを行う前に保存する必要があります。"
 
-#: Base.java:2100
-msgid "FAQ.html"
-msgstr "FAQ.html"
-
 #: ../../../processing/app/Base.java:416
 #, java-format
 msgid "Failed to open sketch: \"{0}\""
@@ -892,22 +888,6 @@ msgstr "グローバル変数は {0}バイトの動的メモリを使用して�
 #: Preferences.java:98
 msgid "Greek"
 msgstr "ギリシア語"
-
-#: Base.java:2085
-msgid "Guide_Environment.html"
-msgstr "Guide_Environment.html"
-
-#: Base.java:2071
-msgid "Guide_MacOSX.html"
-msgstr "Guide_MacOSX.html"
-
-#: Base.java:2095
-msgid "Guide_Troubleshooting.html"
-msgstr "Guide_Troubleshooting.html"
-
-#: Base.java:2073
-msgid "Guide_Windows.html"
-msgstr "Guide_Windows.html"
 
 #: ../../../processing/app/Preferences.java:95
 msgid "Hebrew"
@@ -1796,9 +1776,9 @@ msgstr "書き込みを検証する"
 msgid "Vietnamese"
 msgstr ""
 
-#: Editor.java:1105
-msgid "Visit Arduino.cc"
-msgstr "Arduino.ccウェブサイトを開く"
+#: ../../../../../app/src/processing/app/Editor.java:1105
+msgid "Visit Arduino.org"
+msgstr ""
 
 #: ../../../processing/app/debug/Compiler.java:115
 #, java-format
@@ -1967,13 +1947,9 @@ msgstr "createNewFile()がfalseを返しました。"
 msgid "enabled in File > Preferences."
 msgstr "ファイル > 設定 で有効にする"
 
-#: Base.java:2090
-msgid "environment"
-msgstr "environment"
-
-#: Editor.java:1108
-msgid "http://arduino.cc/"
-msgstr "http://arduino.cc/"
+#: ../../../../../app/src/processing/app/Editor.java:1108
+msgid "http://arduino.org/"
+msgstr ""
 
 #: UpdateCheck.java:118
 msgid "http://www.arduino.cc/en/Main/Software"
@@ -1983,26 +1959,14 @@ msgstr "http://www.arduino.cc/en/Main/Software"
 msgid "http://www.arduino.cc/latest.txt"
 msgstr "http://www.arduino.cc/latest.txt"
 
-#: Base.java:2075
-msgid "http://www.arduino.cc/playground/Learning/Linux"
-msgstr "http://www.arduino.cc/playground/Learning/Linux"
-
 #: Preferences.java:625
 #, java-format
 msgid "ignoring invalid font size {0}"
 msgstr "フォントサイズの指定「{0}」が異常なので無視します。"
 
-#: Base.java:2080
-msgid "index.html"
-msgstr "index.html"
-
 #: Editor.java:936 Editor.java:943
 msgid "name is null"
 msgstr "nameがnullです"
-
-#: Base.java:2090
-msgid "platforms.html"
-msgstr "platforms.html"
 
 #: Editor.java:932
 msgid "serialMenu is null"
@@ -2037,11 +2001,6 @@ msgstr "{0}が{1}を返しました。"
 #, java-format
 msgid "{0} | Arduino {1}"
 msgstr "{0} | Arduino {1}"
-
-#: Editor.java:1874
-#, java-format
-msgid "{0}.html"
-msgstr "{0}.html"
 
 #: ../../../processing/app/Base.java:519
 #, java-format
