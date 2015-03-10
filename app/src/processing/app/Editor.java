@@ -1102,10 +1102,10 @@ public class Editor extends JFrame implements RunnerListener {
       });
     menu.add(item);
 
-    item = new JMenuItem(_("Visit Arduino.cc"));
+    item = new JMenuItem(_("Visit Arduino.org"));
     item.addActionListener(new ActionListener() {
         public void actionPerformed(ActionEvent e) {
-          Base.openURL(_("http://arduino.cc/"));
+          Base.openURL(_("http://arduino.org/"));
         }
       });
     menu.add(item);
